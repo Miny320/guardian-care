@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/assets/logo-mark.png" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/png" href="/assets/logo-mark-day.png" media="(prefers-color-scheme: light)" />
+
+    <link rel="apple-touch-icon" href="/assets/logo-mark.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guardian Care — Energy Intelligence Built Around the Customer</title>
+    <meta
+      name="description"
+      content="Guardian Care builds energy intelligence around the customer — lifecycle visibility for suppliers, and straight answers for the people on the meter."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      try {
+        var t = localStorage.getItem('gc-theme');
+        if (t === 'day') document.documentElement.dataset.theme = 'day';
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/index.tsx"></script>
+    <link rel="stylesheet" href="/src/index.css" />
+  </body>
+</html>
