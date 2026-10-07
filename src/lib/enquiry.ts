@@ -34,6 +34,7 @@ export function problems(enquiry: Enquiry): Partial<Record<Field, string>> {
     found.phone = 'Check this number. UK numbers start 01, 02, 03 or 07; international ones start with +.';
 
   if (!enquiry.role) found.role = 'Choose the one that fits best — it decides who reads this.';
+  else if (!ROLES.some((role) => role.value === enquiry.role)) found.role = 'Pick one of the listed options.';
 
   if (!enquiry.message.trim()) found.message = 'Tell us what you would like to know.';
   else if (!validMessage(enquiry.message)) found.message = 'A little more detail would help us answer properly.';

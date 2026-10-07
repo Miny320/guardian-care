@@ -4,7 +4,7 @@ import {Wrap} from '../../components/ui';
 import {CONTACT} from '../../data/contact';
 import {cn} from '../../lib/cn';
 
-type FooterLink = {href: string; label: string; external?: boolean};
+type FooterLink = {href: string; label: string; external?: boolean; newTab?: boolean};
 
 const COLUMNS: Array<{heading: string; links: FooterLink[]}> = [
   {
@@ -27,7 +27,12 @@ const COLUMNS: Array<{heading: string; links: FooterLink[]}> = [
   {
     heading: 'Contact',
     links: [
-      {href: '/contact', label: 'Contact Us'},
+      {
+        href: 'https://calendly.com/theguardiancare/new-meeting',
+        label: 'Ask to team',
+        external: true,
+        newTab: true
+      },
       {href: CONTACT.phoneHref, label: CONTACT.phone, external: true},
       {href: CONTACT.emailHref, label: CONTACT.email, external: true}
     ]
@@ -63,6 +68,7 @@ export default function Footer() {
                     <a
                       key={`${column.heading}-${link.label}`}
                       href={link.href}
+                      {...(link.newTab ? {target: '_blank', rel: 'noopener noreferrer'} : {})}
                       className="transition-colors hover:text-green"
                     >
                       {link.label}

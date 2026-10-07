@@ -1,10 +1,9 @@
 import type {VercelRequest, VercelResponse} from '@vercel/node';
 import {Resend} from 'resend';
-import {CONTACT} from '../src/data/contact';
 import {ROLES, problems, type Enquiry} from '../src/lib/enquiry';
 
 const FROM = process.env.ENQUIRY_FROM ?? 'Guardian Care <onboarding@resend.dev>';
-const TO = process.env.ENQUIRY_TO ?? CONTACT.email;
+const TO = process.env.ENQUIRY_TO ?? 'Greenguardiansolar@gmail.com';
 
 const MAX_BODY_BYTES = 8_000;
 const WINDOW_MS = 60_000;
