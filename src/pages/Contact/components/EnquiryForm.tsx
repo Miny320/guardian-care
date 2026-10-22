@@ -4,7 +4,6 @@ import {LABEL, SECONDARY} from '../../../components/kit';
 import {cn} from '../../../lib/cn';
 import {
   EMPTY_ENQUIRY,
-  ENQUIRY_PENDING_NOTE,
   FIELD_ORDER,
   problems,
   sendEnquiry,
@@ -140,8 +139,6 @@ export default function EnquiryForm() {
             >
               {sending ? 'Sending…' : 'Send message →'}
             </button>
-
-            <p className="text-[12.5px] font-light leading-[1.55] text-faint">{ENQUIRY_PENDING_NOTE}</p>
           </div>
 
           {/* <div className="border-t border-line-2 bg-bg/40 px-6 py-5">
@@ -255,10 +252,6 @@ function Sent({email, onAgain}: {email: string; onAgain: () => void}) {
       <p className="mt-3 text-[15px] font-light leading-[1.6] text-muted">
         We will reply to <span className="mono font-medium text-ink">{email}</span>. If you do not
         see it, check the folder your provider files new senders in.
-      </p>
-
-      <p className="mt-4 rounded-card bg-bg-2 px-4 py-3 text-[12.5px] font-light leading-[1.55] text-faint ring-1 ring-line-2">
-        {ENQUIRY_PENDING_NOTE}
       </p>
 
       <div className="mt-6">
