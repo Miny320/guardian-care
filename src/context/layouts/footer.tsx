@@ -27,12 +27,8 @@ const COLUMNS: Array<{heading: string; links: FooterLink[]}> = [
   {
     heading: 'Contact',
     links: [
-      {
-        href: 'https://calendly.com/theguardiancare/new-meeting',
-        label: 'Ask to team',
-        external: true,
-        newTab: true
-      },
+      {href: '/contact', label: 'Get in touch'},
+      {href: CONTACT.booking, label: 'Book a call', external: true, newTab: true},
       {href: CONTACT.phoneHref, label: CONTACT.phone, external: true},
       {href: CONTACT.emailHref, label: CONTACT.email, external: true}
     ]

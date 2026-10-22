@@ -19,8 +19,8 @@ export default function App() {
           <Route path="/business" element={<Business />} />
 
           <Route path="/start" element={<Start />} />
-
           <Route path="/contact" element={<Contact />} />
+
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

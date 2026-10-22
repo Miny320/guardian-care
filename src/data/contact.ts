@@ -3,5 +3,6 @@ export const CONTACT = {
   phoneHref: 'tel:+443301221279',
   email: 'hi@guardiancare.com',
   emailHref: 'mailto:hi@guardiancare.com',
-  hours: 'Mon–Fri, 9–5'
+  hours: 'Mon–Fri, 9–5',
+  booking: 'https://calendly.com/theguardiancare/new-meeting'
 } as const;
