@@ -1,11 +1,17 @@
 import emailjs, {EmailJSResponseStatus} from '@emailjs/browser';
 import {validEmail, validMessage, validName, validTelephone} from './validate';
 
-const EMAILJS = {
-  serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
-  templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-} as const;
+const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+/** Inbox that receives the forms; sent as {{to_email}} so the template's "To Email" can use it. */
+const COMPANY_EMAIL = import.meta.env.VITE_COMPANY_EMAIL?.trim() ?? '';
+
+// const EMAILJS = {
+//   serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+//   templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+//   publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+// } as const;
 
 export type Enquiry = {
   name: string;
@@ -52,10 +58,9 @@ export async function sendEnquiry(enquiry: Enquiry): Promise<void> {
 
   try {
     await emailjs.send(
-      EMAILJS.serviceId,
-      EMAILJS.templateId,
+      SERVICE_ID, TEMPLATE_ID, 
       {name, email, phone, message, from_name: name, reply_to: email},
-      {publicKey: EMAILJS.publicKey}
+      {publicKey: PUBLIC_KEY}
     );
   } catch (error) {
     if (import.meta.env.DEV) console.error('[enquiry] EmailJS failed:', error);
