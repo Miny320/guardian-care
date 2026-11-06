@@ -1,6 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
 import Glyph from '../Glyph';
 import {cn} from '../../lib/cn';
+import {BUTTON_BASE, SOLID_LOOK} from '../kit';
 import {visibleSteps, type Answers, type Estimate, type ProfileLine, type Step} from './types';
 
 const ADVANCE_MS = 260;
@@ -12,7 +13,8 @@ type AssessmentProps = {
   onComplete: () => void;
   done: boolean;
   finishLabel: string;
-  profile: {heading: string; lines: ProfileLine[]};
+  // Left out in the home page pop-up, where the questions take the full width.
+  profile?: {heading: string; lines: ProfileLine[]};
   onReset: () => void;
 };
 
@@ -97,7 +99,12 @@ export default function Assessment({
       step.fields.some((item) => (answers.field[item.key] ?? '').trim() !== ''));
 
   return (
-    <div className="grid gap-px overflow-hidden rounded-panel bg-line-2 ring-1 ring-line-2 min-[980px]:grid-cols-[1fr_306px]">
+    <div
+      className={cn(
+        'grid gap-px overflow-hidden rounded-panel bg-line-2 ring-1 ring-line-2',
+        profile && 'min-[980px]:grid-cols-[1fr_306px]'
+      )}
+    >
       <div className="bg-panel p-6 min-[760px]:p-9">
         {done ? (
           <Complete count={visible.length} onRestart={restart} />
@@ -110,7 +117,7 @@ export default function Assessment({
                 <Glyph name={step.glyph} className="h-8 w-8" />
               </span>
               <div>
-                <h3 className="font-display text-[clamp(24px,3vw,34px)] font-semibold uppercase leading-[1.06] tracking-[-0.01em] text-ink">
+                <h3 className="font-display text-[clamp(24px,3vw,34px)] font-extrabold leading-[1.06] tracking-[-0.01em] text-ink">
                   {step.title}
                 </h3>
                 {step.lead ? (
@@ -241,7 +248,7 @@ export default function Assessment({
                 <button
                   type="button"
                   onClick={back}
-                  className="inline-flex items-center gap-2 rounded-full px-4 py-3 text-[13.5px] min-[520px]:py-2.5 font-medium text-faint ring-1 ring-line-2 transition duration-200 hover:text-ink hover:ring-ink/25"
+                  className="inline-flex items-center gap-2 rounded-[8px] px-4 py-3 text-[13.5px] min-[520px]:py-2.5 font-medium text-faint ring-1 ring-line-2 transition duration-200 hover:text-ink hover:ring-ink/25"
                 >
                   ← Back
                 </button>
@@ -252,7 +259,7 @@ export default function Assessment({
                   type="button"
                   onClick={() => advance(answers)}
                   disabled={step.kind === 'multi' && multiPicked.length === 0}
-                  className="inline-flex items-center gap-2.5 rounded-full bg-[var(--cta)] px-7 py-3 text-[14px] font-semibold tracking-[-0.005em] text-[var(--cta-ink)] shadow-[0_12px_30px_-14px_var(--btn-glow)] transition duration-200 ease-brand hover:-translate-y-0.5 hover:brightness-110 disabled:pointer-events-none disabled:opacity-40"
+                  className={cn('inline-flex', BUTTON_BASE, SOLID_LOOK, 'px-6 py-3 text-[15px] disabled:pointer-events-none disabled:opacity-40')}
                 >
                   {last ? finishLabel : 'Continue'} →
                 </button>
@@ -266,44 +273,46 @@ export default function Assessment({
         )}
       </div>
 
-      <aside className="bg-bg-2 p-6 min-[760px]:p-7">
-        <div className="text-[11.5px] font-bold uppercase tracking-[.13em] text-green">
-          {profile.heading}
-        </div>
+      {profile ? (
+        <aside className="bg-bg-2 p-6 min-[760px]:p-7">
+          <div className="text-[11.5px] font-bold uppercase tracking-[.13em] text-green">
+            {profile.heading}
+          </div>
 
-        <dl className="mt-5 space-y-px">
-          {profile.lines.map((line) => (
-            <div key={line.label} className="py-2.5">
-              <dt className="text-[11.5px] font-medium uppercase tracking-[.08em] text-faint">
-                {line.label}
-              </dt>
-              <dd
-                className={cn(
-                  'mono mt-1 text-[16px] font-semibold',
-                  line.value ? 'text-ink' : 'text-faint/70'
-                )}
-              >
-                {line.value ?? line.pending ?? '—'}
-              </dd>
-            </div>
-          ))}
-        </dl>
+          <dl className="mt-5 space-y-px">
+            {profile.lines.map((line) => (
+              <div key={line.label} className="py-2.5">
+                <dt className="text-[11.5px] font-medium uppercase tracking-[.08em] text-faint">
+                  {line.label}
+                </dt>
+                <dd
+                  className={cn(
+                    'mono mt-1 text-[16px] font-semibold',
+                    line.value ? 'text-ink' : 'text-faint/70'
+                  )}
+                >
+                  {line.value ?? line.pending ?? '—'}
+                </dd>
+              </div>
+            ))}
+          </dl>
 
-        {done ? (
-          <button
-            type="button"
-            onClick={restart}
-            className="mt-5 w-full rounded-full px-4 py-3 text-[13px] min-[520px]:py-2.5 font-medium text-faint ring-1 ring-line-2 transition duration-200 hover:text-ink hover:ring-ink/25"
-          >
-            Start again
-          </button>
-        ) : (
-          <p className="mt-5 border-t border-line-2 pt-4 text-[12.5px] font-light leading-[1.55] text-faint">
-            Everything here is an estimate until Guardian Care receives monitoring and meter data
-            from the property.
-          </p>
-        )}
-      </aside>
+          {done ? (
+            <button
+              type="button"
+              onClick={restart}
+              className="mt-5 w-full rounded-[8px] px-4 py-3 text-[13px] min-[520px]:py-2.5 font-medium text-faint ring-1 ring-line-2 transition duration-200 hover:text-ink hover:ring-ink/25"
+            >
+              Start again
+            </button>
+          ) : (
+            <p className="mt-5 border-t border-line-2 pt-4 text-[12.5px] font-light leading-[1.55] text-faint">
+              Everything here is an estimate until Guardian Care receives monitoring and meter data
+              from the property.
+            </p>
+          )}
+        </aside>
+      ) : null}
     </div>
   );
 }
@@ -359,7 +368,7 @@ function Assumed({estimate, onOpen}: {estimate: Estimate; onOpen: () => void}) {
       <button
         type="button"
         onClick={onOpen}
-        className="mt-4 inline-flex items-center gap-2 rounded-full px-4 py-3 text-[13.5px] min-[520px]:py-2.5 font-medium text-green ring-1 ring-green/40 transition duration-200 hover:bg-green-glow hover:ring-green/70"
+        className="mt-4 inline-flex items-center gap-2 rounded-[8px] px-4 py-3 text-[13.5px] min-[520px]:py-2.5 font-medium text-green ring-1 ring-green/40 transition duration-200 hover:bg-green-glow hover:ring-green/70"
       >
         {estimate.open} →
       </button>
@@ -389,7 +398,7 @@ function Complete({count, onRestart}: {count: number; onRestart: () => void}) {
       <span className="text-green">
         <Glyph name="insight" className="h-10 w-10" />
       </span>
-      <h3 className="mt-5 font-display text-[clamp(26px,3.2vw,38px)] font-semibold uppercase leading-[1.04] tracking-[-0.01em] text-ink">
+      <h3 className="mt-5 font-display text-[clamp(26px,3.2vw,38px)] font-extrabold leading-[1.04] tracking-[-0.01em] text-ink">
         Your assessment is ready
       </h3>
       <p className="mt-3 max-w-[440px] text-[15.5px] font-light leading-[1.6] text-muted">
@@ -401,7 +410,7 @@ function Complete({count, onRestart}: {count: number; onRestart: () => void}) {
         <button
           type="button"
           onClick={onRestart}
-          className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-[13.5px] min-[520px]:py-2.5 font-medium text-faint ring-1 ring-line-2 transition duration-200 hover:text-ink hover:ring-ink/25"
+          className="inline-flex items-center gap-2 rounded-[8px] px-5 py-3 text-[13.5px] min-[520px]:py-2.5 font-medium text-faint ring-1 ring-line-2 transition duration-200 hover:text-ink hover:ring-ink/25"
         >
           Start again
         </button>

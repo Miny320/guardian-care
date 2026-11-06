@@ -43,7 +43,7 @@ export default function Gap() {
               boxShadow: `inset 0 0 0 1px ${tint('var(--color-red)', 18)}`
             }}
           >
-            <div className="font-display text-[clamp(26px,4.4vw,44px)] font-semibold uppercase leading-[1.05] tracking-[-0.015em] text-ink">
+            <div className="font-display text-[clamp(26px,4.4vw,44px)] font-extrabold leading-[1.05] tracking-[-0.015em] text-ink">
               <Counter value={String(GAP.years)} /> years.
               <br />
               <span className="text-red">Nobody checked.</span>

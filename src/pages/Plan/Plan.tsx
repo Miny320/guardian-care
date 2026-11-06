@@ -1,19 +1,16 @@
 import CommandField from '../Home/components/CommandField';
+import {usePageTitle} from '../../lib/country';
 import {useCallback, useMemo, useState} from 'react';
 import {NO_ANSWERS, type Answers} from '../../components/Assessment/types';
-import WaveSign from '../../context/layouts/WaveSign';
 import {readPlan} from '../../data/plan';
-import Afterwards from './components/Afterwards';
-import Ask from './components/Ask';
 import Assess from './components/Assess';
-import Goal from './components/Goal';
-import Hero from './components/Hero';
-import Mechanism from './components/Mechanism';
+import CompactPosition from './components/CompactPosition';
 import Position from './components/Position';
-import Quote from './components/Quote';
-import Storage from './components/Storage';
 
-export default function Plan() {
+// `embedded` renders the journey inside the home page's pop-up instead of as its own page.
+export default function Plan({embedded = false}: {embedded?: boolean}) {
+  usePageTitle(embedded ? undefined : 'Your energy plan');
+  const Root = embedded ? 'div' : 'main';
   const [answers, setAnswers] = useState<Answers>(NO_ANSWERS);
   const [generated, setGenerated] = useState(false);
 
@@ -24,36 +21,26 @@ export default function Plan() {
     setGenerated(false);
   }, []);
 
-  const pickGoal = useCallback((key: string) => {
-    setAnswers((current) => ({...current, choice: {...current.choice, goal: key}}));
-  }, []);
-
   return (
-    <main className="relative isolate overflow-hidden">
-      <CommandField />
+    <Root className="relative isolate overflow-hidden">
+      {/* The pop-up stays plain: no moving background behind the questions. */}
+      {embedded ? null : <CommandField />}
 
-      <Hero />
+      {embedded && generated ? (
+        <CompactPosition position={position} onRestart={reset} />
+      ) : (
+        <Assess
+          embedded={embedded}
+          answers={answers}
+          position={position}
+          done={generated}
+          onChange={setAnswers}
+          onComplete={() => setGenerated(true)}
+          onReset={reset}
+        />
+      )}
 
-      <Goal goal={answers.choice.goal ?? null} onPick={pickGoal} />
-
-      <Assess
-        answers={answers}
-        position={position}
-        done={generated}
-        onChange={setAnswers}
-        onComplete={() => setGenerated(true)}
-        onReset={reset}
-      />
-
-      {generated ? <Position position={position} /> : null}
-
-      <Mechanism />
-      <Storage />
-      <Quote position={position} />
-      <Afterwards />
-      <Ask />
-
-      <WaveSign />
-    </main>
+      {!embedded && generated ? <Position position={position} /> : null}
+    </Root>
   );
 }

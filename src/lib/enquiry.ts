@@ -22,6 +22,9 @@ export type Enquiry = {
 
 export type Field = keyof Enquiry;
 
+// Everything else the multi-step form gathers, sent along with the message.
+export type EnquiryContext = {country: string; service: string; details: Array<[string, string]>};
+
 export const FIELD_ORDER: Field[] = ['name', 'email', 'phone', 'message'];
 
 export const EMPTY_ENQUIRY: Enquiry = {name: '', email: '', phone: '', message: ''};
@@ -36,7 +39,7 @@ export function problems(enquiry: Enquiry): Partial<Record<Field, string>> {
   else if (!validEmail(enquiry.email)) found.email = 'Check this address. It needs an @ and a domain, like you@company.com.';
 
   if (enquiry.phone.trim() && !validTelephone(enquiry.phone))
-    found.phone = 'Check this number. UK numbers start 01, 02, 03 or 07; international ones start with +.';
+    found.phone = 'Check this number. Include the area code, or start with + and the country code.';
 
   if (!enquiry.message.trim()) found.message = 'Tell us what you would like to know.';
   else if (!validMessage(enquiry.message)) found.message = 'A little more detail would help us answer properly.';
@@ -46,7 +49,7 @@ export function problems(enquiry: Enquiry): Partial<Record<Field, string>> {
 
 const GENERIC_FAILURE = 'That did not go through. Please try again, or call or email us instead.';
 
-export async function sendEnquiry(enquiry: Enquiry): Promise<void> {
+export async function sendEnquiry(enquiry: Enquiry, context?: EnquiryContext): Promise<void> {
   if (Object.keys(problems(enquiry)).length > 0) {
     throw new Error('Some of these need another look.');
   }
@@ -54,12 +57,27 @@ export async function sendEnquiry(enquiry: Enquiry): Promise<void> {
   const name = enquiry.name.trim();
   const email = enquiry.email.trim();
   const phone = enquiry.phone.trim() || 'Not given';
-  const message = enquiry.message.trim();
+  const summary = context
+    ? [['Country', context.country], ['Service', context.service], ...context.details]
+        .map(([label, value]) => `${label}: ${value}`)
+        .join('\n')
+    : '';
+  // The EmailJS template only prints {{message}}, so the form's answers ride at the top of it.
+  const message = summary ? `${summary}\n\n${enquiry.message.trim()}` : enquiry.message.trim();
 
   try {
     await emailjs.send(
       SERVICE_ID, TEMPLATE_ID, 
-      {name, email, phone, message, from_name: name, reply_to: email},
+      {
+        name,
+        email,
+        phone,
+        message,
+        from_name: name,
+        reply_to: email,
+        country: context?.country ?? '',
+        service: context?.service ?? ''
+      },
       {publicKey: PUBLIC_KEY}
     );
   } catch (error) {

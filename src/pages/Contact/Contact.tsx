@@ -4,10 +4,14 @@ import Reveal from '../../components/Reveal';
 import {LABEL_BASE} from '../../components/kit';
 import {Wrap} from '../../components/ui';
 import {cn} from '../../lib/cn';
+import {useCountry, usePageTitle} from '../../lib/country';
 
 export default function Contact() {
+  const {name} = useCountry();
+  usePageTitle('Contact us');
+
   return (
-    <main className="relative isolate overflow-hidden">
+    <main className="under-nav relative isolate overflow-hidden">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -left-[18%] -top-[24%] -z-10 h-[72vw] w-[72vw] rounded-full blur-[150px] min-[1000px]:h-[52vw] min-[1000px]:w-[52vw]"
@@ -18,15 +22,15 @@ export default function Contact() {
         <div className="grid items-start gap-12 py-16 min-[760px]:py-24 min-[1080px]:grid-cols-[0.92fr_1.08fr] min-[1080px]:gap-16">
           <div className="min-[1080px]:sticky min-[1080px]:top-28">
             <Reveal className={cn(LABEL_BASE, 'text-[12px] tracking-[.12em] text-green')}>
-              Contact
+              Contact · {name}
             </Reveal>
 
             <Reveal
               as="h1"
               delay={0.05}
-              className="mt-6 font-display text-[clamp(40px,5.4vw,68px)] font-semibold uppercase leading-[0.92] tracking-[-0.02em] text-ink"
+              className="mt-6 font-display text-[clamp(40px,5.4vw,68px)] font-extrabold leading-[0.92] tracking-[-0.02em] text-ink"
             >
-              Talk to <span className="text-brand-gradient">team.</span>
+              Talk to <span className="text-brand-gradient">the team.</span>
             </Reveal>
 
             <Reveal

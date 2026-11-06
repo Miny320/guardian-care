@@ -4,8 +4,9 @@ import {Section, Wrap} from '../../../components/ui';
 import {NEXT_STEPS, observe, type ExistingPosition} from '../../../data/consumer';
 import {cn} from '../../../lib/cn';
 import Conduit from '../../Home/components/Conduit';
-import {Heading, LABEL, SECONDARY} from '../../../components/kit';
+import {Heading, LABEL} from '../../../components/kit';
 import SystemSummary from './steps/SystemSummary';
+import JourneyResult from '../../../components/JourneyResult';
 
 export default function Summary({position}: {position: ExistingPosition}) {
   const observation = observe(position);
@@ -34,7 +35,7 @@ export default function Summary({position}: {position: ExistingPosition}) {
               <span className={cn(LABEL, 'text-amber')}> Guardian Care Intelligence · Initial observation</span>
             </div>
             <div className="flex-1 px-6 py-6">
-              <p className="font-display text-[clamp(21px,2.4vw,26px)] font-medium uppercase leading-[1.14] text-ink">
+              <p className="font-display text-[clamp(21px,2.4vw,26px)] font-extrabold leading-[1.14] text-ink">
                 {observation.headline}
               </p>
               <p className="mt-4 text-[15px] font-light leading-[1.65] text-muted">{observation.body}</p>
@@ -75,7 +76,7 @@ export default function Summary({position}: {position: ExistingPosition}) {
                       {here ? '✓' : step.index}
                     </span>
                     <span className="min-w-0">
-                      <span className="block font-display text-[19px] font-semibold uppercase leading-none text-ink">
+                      <span className="block font-display text-[19px] font-extrabold leading-none text-ink">
                         {step.name}
                       </span>
                       <span
@@ -93,10 +94,7 @@ export default function Summary({position}: {position: ExistingPosition}) {
             })}
           </ol>
 
-          <div className="flex flex-wrap items-center gap-4 border-t border-line-2 bg-bg/40 px-6 py-5">
-            <a href="#account" className={SECONDARY}>
-              See what your dashboard shows ↑
-            </a>
+          <div className="border-t border-line-2 bg-bg/40 px-6 py-5">
             <span className="text-[13.5px] font-light text-faint">
               Connecting monitoring is the step that turns every estimate above into a reading.
             </span>
@@ -104,5 +102,35 @@ export default function Summary({position}: {position: ExistingPosition}) {
         </Reveal>
       </Wrap>
     </Section>
+  );
+}
+
+// The pop-up version: just the summary and Guardian Care's first observation, sized to sit on
+// one screen without scrolling. It replaces the questions once they are answered.
+export function CompactSummary({position, onRestart}: {position: ExistingPosition; onRestart: () => void}) {
+  const observation = observe(position);
+
+  return (
+    <JourneyResult
+      title="Your system,"
+      accent="at a glance."
+      body="Built from your answers alone. Every figure stays an estimate until your system is connected."
+      onRestart={onRestart}
+      facts={
+        <SystemSummary
+          dense
+          position={position}
+          title="Your system summary"
+          caption="Once monitoring is connected, these estimates are replaced by what your system actually does."
+        />
+      }
+      insight={{
+        label: 'Guardian Care Intelligence · Initial observation',
+        headline: observation.headline,
+        body: observation.body,
+        nextLabel: 'What we recommend',
+        next: observation.next
+      }}
+    />
   );
 }

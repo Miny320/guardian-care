@@ -11,7 +11,7 @@ export default function Tracked() {
             <Glyph name={item.glyph} bold className="h-6 w-6" />
           </Tile>
           <span className="min-w-0">
-            <span className="block font-display text-[18px] font-semibold uppercase leading-[1.05] text-ink">
+            <span className="block font-display text-[18px] font-extrabold leading-[1.05] text-ink">
               {item.name}
             </span>
             <span className="mt-1.5 block text-[13.5px] font-light leading-[1.5] text-muted">

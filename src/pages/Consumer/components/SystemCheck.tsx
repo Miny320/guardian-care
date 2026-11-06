@@ -1,5 +1,6 @@
 import Assessment from '../../../components/Assessment/Assessment';
 import type {Answers, ProfileLine} from '../../../components/Assessment/types';
+import {MarketNotice} from '../../../components/page';
 import Reveal from '../../../components/Reveal';
 import {Section, Wrap} from '../../../components/ui';
 import {ERA_LABEL, EXISTING_STEPS, type ExistingPosition} from '../../../data/consumer';
@@ -7,6 +8,7 @@ import {cn} from '../../../lib/cn';
 import {LABEL} from '../../../components/kit';
 
 export default function SystemCheck({
+  embedded = false,
   answers,
   position,
   done,
@@ -14,6 +16,8 @@ export default function SystemCheck({
   onComplete,
   onReset
 }: {
+  // In the pop-up the questions take the full width, without the profile beside them.
+  embedded?: boolean;
   answers: Answers;
   position: ExistingPosition;
   done: boolean;
@@ -22,16 +26,15 @@ export default function SystemCheck({
   onReset: () => void;
 }) {
   return (
-    <Section id="unseen" hairline className="py-16 min-[760px]:py-24">
+    <Section id="check" className="under-nav pb-16 min-[760px]:pb-24">
       <Wrap>
-
-        <div id="check" className="scroll-mt-24 pt-16 min-[760px]:pt-20">
+        <div className="pt-12 min-[760px]:pt-16">
           <Reveal className="mb-10 grid gap-6 min-[1000px]:grid-cols-[1fr_auto] min-[1000px]:items-end">
             <div className="max-w-[640px]">
               <div className={cn(LABEL, 'text-amber')}> Start my system check</div>
-              <h3 className="mt-4 font-display text-[clamp(28px,3.8vw,44px)] font-semibold uppercase leading-[1] tracking-[-0.01em] text-ink">
+              <h1 className="mt-4 font-display text-[clamp(32px,4.6vw,56px)] font-extrabold leading-[0.96] tracking-[-0.015em] text-ink">
                 Check my existing solar system
-              </h3>
+              </h1>
               <p className="mt-4 text-[16.5px] font-light leading-[1.65] text-muted">
                 Tell us a few simple details about your installation and Guardian Care will begin
                 building your system profile. Your summary appears the moment you finish.
@@ -50,6 +53,7 @@ export default function SystemCheck({
             </ul>
           </Reveal>
 
+          <MarketNotice />
           <Reveal>
             <Assessment
               steps={EXISTING_STEPS}
@@ -59,7 +63,7 @@ export default function SystemCheck({
               onReset={onReset}
               done={done}
               finishLabel="Build my system summary"
-              profile={{heading: 'Your system profile', lines: profileLines(position)}}
+              profile={embedded ? undefined : {heading: 'Your system profile', lines: profileLines(position)}}
             />
           </Reveal>
         </div>

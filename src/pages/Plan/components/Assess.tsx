@@ -1,10 +1,12 @@
 import Assessment from '../../../components/Assessment/Assessment';
 import type {Answers, ProfileLine} from '../../../components/Assessment/types';
+import {MarketNotice} from '../../../components/page';
 import Reveal from '../../../components/Reveal';
 import {Section, Wrap} from '../../../components/ui';
 import {GOAL_LABEL, PLAN_STEPS, type PlanPosition} from '../../../data/plan';
 
 export default function Assess({
+  embedded = false,
   answers,
   position,
   done,
@@ -12,6 +14,8 @@ export default function Assess({
   onComplete,
   onReset
 }: {
+  // In the pop-up the questions take the full width, without the profile beside them.
+  embedded?: boolean;
   answers: Answers;
   position: PlanPosition;
   done: boolean;
@@ -20,15 +24,15 @@ export default function Assess({
   onReset: () => void;
 }) {
   return (
-    <Section id="assess" hairline className="py-16 min-[760px]:py-24">
+    <Section id="assess" className="under-nav pb-16 min-[760px]:pb-24">
       <Wrap>
-        <Reveal className="mb-10 grid gap-6 min-[1000px]:grid-cols-[1fr_auto] min-[1000px]:items-end">
+        <Reveal className="mb-10 grid pt-12 min-[760px]:pt-16 gap-6 min-[1000px]:grid-cols-[1fr_auto] min-[1000px]:items-end">
           <div className="max-w-[660px]">
-            <h2 className="font-display text-[clamp(30px,4.6vw,54px)] font-semibold uppercase leading-[0.98] tracking-[-0.015em] text-ink">
+            <h1 className="font-display text-[clamp(32px,4.6vw,56px)] font-extrabold leading-[0.96] tracking-[-0.015em] text-ink">
               Your position first.
               <br />
               <span className="text-brand-gradient">Panels later.</span>
-            </h2>
+            </h1>
             <p className="mt-5 text-[16.5px] font-light leading-[1.65] text-muted">
               A few questions about what you pay now. The estimate is built from your answers, not
               from a product we would like to sell you.
@@ -49,6 +53,7 @@ export default function Assess({
           </ul>
         </Reveal>
 
+        <MarketNotice />
         <Reveal>
           <Assessment
             steps={PLAN_STEPS}
@@ -58,7 +63,7 @@ export default function Assess({
             onReset={onReset}
             done={done}
             finishLabel="Build my energy estimate"
-            profile={{heading: 'Your current position', lines: profileLines(position)}}
+            profile={embedded ? undefined : {heading: 'Your current position', lines: profileLines(position)}}
           />
         </Reveal>
       </Wrap>

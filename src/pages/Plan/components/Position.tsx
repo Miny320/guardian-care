@@ -60,7 +60,7 @@ export default function Position({position}: {position: PlanPosition}) {
               <>
                 <div>
                   <div className="mb-4 flex flex-wrap items-baseline justify-between gap-3">
-                    <span className="font-display text-[clamp(19px,2.2vw,24px)] font-semibold uppercase leading-none text-ink">
+                    <span className="font-display text-[clamp(19px,2.2vw,24px)] font-extrabold leading-none text-ink">
                       Today
                     </span>
                     <span className="mono text-[13px] uppercase tracking-[.12em] text-orange">
@@ -79,7 +79,7 @@ export default function Position({position}: {position: PlanPosition}) {
 
                 <div>
                   <div className="mb-4 flex flex-wrap items-baseline justify-between gap-3">
-                    <span className="font-display text-[clamp(19px,2.2vw,24px)] font-semibold uppercase leading-none text-ink">
+                    <span className="font-display text-[clamp(19px,2.2vw,24px)] font-extrabold leading-none text-ink">
                       Potentially
                     </span>
                     <span className="mono text-[13px] uppercase tracking-[.12em] text-green">

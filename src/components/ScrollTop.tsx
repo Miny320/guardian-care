@@ -4,7 +4,7 @@ import {cn} from '../lib/cn';
 const RADIUS = 20;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
-export default function ScrollTop() {
+export default function ScrollTop({raised = false}: {raised?: boolean}) {
   const [progress, setProgress] = useState(0);
   const [shown, setShown] = useState(false);
 
@@ -47,7 +47,8 @@ export default function ScrollTop() {
       tabIndex={shown ? 0 : -1}
       aria-hidden={!shown}
       className={cn(
-        'group ring-lit fixed bottom-6 right-6 z-90 grid h-[52px] w-[52px] place-items-center rounded-full bg-glass backdrop-blur-[14px] transition duration-300 ease-brand',
+        raised ? 'bottom-[92px] min-[640px]:bottom-6' : 'bottom-6',
+        'group ring-lit fixed right-6 z-90 grid h-[52px] w-[52px] place-items-center rounded-full bg-glass backdrop-blur-[14px] transition duration-300 ease-brand',
         'hover:-translate-y-0.5 hover:bg-panel-2/70',
         shown
           ? 'pointer-events-auto translate-y-0 opacity-100'

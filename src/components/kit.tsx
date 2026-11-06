@@ -4,17 +4,21 @@ import Reveal from './Reveal';
 import {TONE_TEXT, TONE_VAR, type StatusTone} from '../data/command';
 import {cn} from '../lib/cn';
 
-export const PRIMARY =
-  'inline-flex items-center gap-3 rounded-pill bg-[var(--cta)] px-8 py-[17px] text-[12.5px] ' +
-  'font-bold uppercase tracking-[.1em] text-[var(--cta-ink)] ' +
-  'shadow-[0_16px_40px_-16px_var(--btn-glow)] transition duration-250 ease-brand ' +
-  'hover:-translate-y-0.5 hover:bg-[var(--cta-hover)] ' +
-  'hover:shadow-[0_24px_54px_-18px_var(--btn-glow)]';
+// Every button on the site: a softly rounded rectangle in sentence case. The solid one is white
+// on dark sections and navy on light ones; the outline one follows the same colours.
+export const BUTTON_BASE =
+  'items-center justify-center gap-2 rounded-[8px] font-semibold transition duration-250 ease-brand ' +
+  'hover:-translate-y-0.5';
+export const BUTTON_SIZE = 'px-7 py-4 text-[16px]';
+export const SOLID_LOOK =
+  'bg-[var(--btn-solid)] text-[var(--btn-solid-ink)] shadow-[0_18px_44px_-22px_var(--btn-shadow)] ' +
+  'hover:bg-[var(--btn-solid-hover)]';
+export const OUTLINE_LOOK =
+  'text-[var(--btn-line-ink)] ring-1 ring-[var(--btn-line)] hover:bg-[var(--btn-line-hover)] ' +
+  'hover:ring-[var(--btn-line-ink)]';
 
-export const SECONDARY =
-  'mono inline-flex items-center gap-2.5 rounded-pill border border-line-2 px-6 py-[15px] ' +
-  'text-[11px] font-semibold uppercase tracking-[.12em] text-ink transition duration-200 ' +
-  'hover:border-green/60 hover:text-green';
+export const PRIMARY = `inline-flex ${BUTTON_BASE} ${BUTTON_SIZE} ${SOLID_LOOK}`;
+export const SECONDARY = `inline-flex ${BUTTON_BASE} ${BUTTON_SIZE} ${OUTLINE_LOOK}`;
 
 export const LABEL_BASE = 'mono font-semibold uppercase';
 
@@ -43,7 +47,7 @@ export function Heading({
         <div className={cn(LABEL_BASE, 'mb-5 text-[11px] tracking-[.12em] text-green')}>{eyebrow}</div>
       ) : null}
 
-      <h2 className="font-display text-[clamp(30px,4.6vw,54px)] font-semibold uppercase leading-[0.98] tracking-[-0.015em] text-ink">
+      <h2 className="font-display text-[clamp(30px,4.6vw,54px)] font-extrabold leading-[0.98] tracking-[-0.015em] text-ink">
         {title}
         {accent ? (
           <>

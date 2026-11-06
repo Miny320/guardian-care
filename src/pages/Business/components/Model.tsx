@@ -1,5 +1,6 @@
 import Counter from '../../../components/Counter';
 import {Heading, LABEL, PRIMARY, ramp, tint} from '../../../components/kit';
+import {CONTACT} from '../../../data/contact';
 import Reveal from '../../../components/Reveal';
 import {Section, Wrap} from '../../../components/ui';
 import {
@@ -60,7 +61,7 @@ export default function Model({position}: {position: BusinessPosition}) {
             <div className="bg-[linear-gradient(120deg,var(--color-green-glow),var(--color-blue-glow))] p-6 min-[760px]:p-9">
               <div className={cn(LABEL, 'text-green')}>&#9671; Guardian Care suggests</div>
 
-              <p className="mt-5 font-display text-[clamp(22px,2.9vw,32px)] font-semibold uppercase leading-[1.1] tracking-[-0.01em] text-ink">
+              <p className="mt-5 font-display text-[clamp(22px,2.9vw,32px)] font-extrabold leading-[1.1] tracking-[-0.01em] text-ink">
                 {suggestion.headline}
               </p>
               <p className="mt-5 max-w-[580px] text-[15.5px] font-light leading-[1.65] text-muted">
@@ -92,8 +93,13 @@ export default function Model({position}: {position: BusinessPosition}) {
               </ol>
 
               <div className="mt-7 border-t border-line-2 pt-6">
-                <a href="#join" className={PRIMARY}>
-                  Start the conversation →
+                <a
+                  href={CONTACT.booking}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={PRIMARY}
+                >
+                  Start the conversation ↗
                 </a>
               </div>
             </div>
@@ -115,7 +121,7 @@ function Row({label, value, tone}: {label: string; value: string; tone?: string}
   );
 }
 
-function suggest(position: BusinessPosition): {headline: string; body: string} {
+export function suggest(position: BusinessPosition): {headline: string; body: string} {
   if (position.reactive && position.installedCount && position.installedCount >= 500) {
     return {
       headline: 'Your best opportunity is already inside your own customer base',

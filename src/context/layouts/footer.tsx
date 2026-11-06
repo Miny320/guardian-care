@@ -2,62 +2,52 @@ import {Link} from 'react-router';
 import Lockup from '../../components/Lockup';
 import {Wrap} from '../../components/ui';
 import {CONTACT} from '../../data/contact';
-import {cn} from '../../lib/cn';
+import {SERVICE_DETAILS} from '../../data/services';
+import {useCountry, useLocalPath} from '../../lib/country';
 
 type FooterLink = {href: string; label: string; external?: boolean; newTab?: boolean};
 
-const COLUMNS: Array<{heading: string; links: FooterLink[]}> = [
-  {
-    heading: 'Journeys',
-    links: [
-      {href: '/consumer', label: 'I already have solar'},
-      {href: '/plan', label: 'I’m looking for solar'},
-      {href: '/business', label: 'Guardian Care for business'}
-    ]
-  },
-  {
-    heading: 'Markets',
-    links: [
-      {href: '/business?market=uk#markets', label: 'United Kingdom'},
-      {href: '/business?market=us#markets', label: 'United States'},
-      {href: '/business?market=au#markets', label: 'Australia'},
-      {href: '/business?market=apac#markets', label: 'Southeast Asia · UAE'}
-    ]
-  },
-  {
-    heading: 'Contact',
-    links: [
-      {href: '/contact', label: 'Get in touch'},
-      {href: CONTACT.booking, label: 'Book a call', external: true, newTab: true},
-      {href: CONTACT.phoneHref, label: CONTACT.phone, external: true},
-      {href: CONTACT.emailHref, label: CONTACT.email, external: true}
-    ]
-  }
-];
-
 export default function Footer() {
+  const country = useCountry();
+  const local = useLocalPath();
+
+  const columns: Array<{heading: string; links: FooterLink[]}> = [
+    {
+      // Each service links to its own section of the Services page.
+      heading: 'Services',
+      links: SERVICE_DETAILS.map((service) => ({href: local(`/services#${service.key}`), label: service.title}))
+    },
+    {
+      heading: 'Contact',
+      links: [
+        {href: local('/contact'), label: 'Get in touch'},
+        {href: CONTACT.booking, label: 'Book a call', external: true, newTab: true},
+        ...(country.phone ? [{href: country.phone.href, label: country.phone.display, external: true}] : []),
+        {href: CONTACT.emailHref, label: CONTACT.email, external: true}
+      ]
+    }
+  ];
+
   return (
-    <footer
-      className={cn(
-        'on-navy border-t border-line-2 bg-bg pb-9 pt-[50px]'
-      )}
-    >
+    <footer className="border-t border-line-2 bg-transparent pb-9 pt-[50px]">
       <Wrap>
-        <div className="grid grid-cols-1 gap-8 min-[460px]:grid-cols-2 min-[460px]:gap-7 min-[820px]:grid-cols-[2.2fr_1fr_1fr_1fr] min-[820px]:gap-[34px]">
-          <div className="min-[460px]:col-span-2 min-[820px]:col-span-1">
+        <div className="grid grid-cols-1 gap-8 min-[460px]:grid-cols-2 min-[460px]:gap-7 min-[1000px]:grid-cols-[1.6fr_1.3fr_1fr] min-[1000px]:gap-[48px]">
+          <div className="min-[460px]:col-span-2 min-[1000px]:col-span-1">
             <Lockup size="footer" />
             <p className="mt-4 max-w-[290px] text-[14.5px] font-light leading-[1.65] text-muted">
-              Energy intelligence for solar households and the companies that install for them. We
-              establish the baseline, measure the system, calculate the difference and explain what
-              it means.
+              Protection, maintenance and energy intelligence for solar homes, and for the companies that
+              install them.
             </p>
+            {country.accreditations.length ? (
+              <p className="mt-2 max-w-[290px] text-[13px] font-medium leading-[1.6] text-muted">
+                Accredited: {country.accreditations.join(' · ')}
+              </p>
+            ) : null}
           </div>
 
-          {COLUMNS.map((column) => (
+          {columns.map((column) => (
             <div key={column.heading} className="min-w-0">
-              <div className="mb-4 text-[11.5px] font-bold uppercase tracking-[.13em] text-green">
-                {column.heading}
-              </div>
+              <div className="mb-4 text-[11.5px] font-bold uppercase tracking-[.13em] text-green">{column.heading}</div>
               <div className="flex w-full min-w-0 flex-col items-start gap-[11px] text-[14.5px] font-light text-muted [&>*]:max-w-full [&>*]:break-words">
                 {column.links.map((link) =>
                   link.external ? (
@@ -70,11 +60,7 @@ export default function Footer() {
                       {link.label}
                     </a>
                   ) : (
-                    <Link
-                      key={`${column.heading}-${link.label}`}
-                      to={link.href}
-                      className="transition-colors hover:text-green"
-                    >
+                    <Link key={`${column.heading}-${link.label}`} to={link.href} className="transition-colors hover:text-green">
                       {link.label}
                     </Link>
                   )
@@ -86,6 +72,7 @@ export default function Footer() {
 
         <div className="mt-11 flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 border-t border-line-2 pt-6 text-center text-[12.5px] font-light text-faint">
           <span>© Guardian Care · Energy, understood.</span>
+          <span>· United States, United Kingdom, Australia, Thailand</span>
         </div>
       </Wrap>
     </footer>

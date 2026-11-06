@@ -15,7 +15,10 @@ export function validTelephone(value: string): boolean {
 
   if (/^\+\d{8,15}$/.test(digits)) return true;
   if (/^00\d{8,15}$/.test(digits)) return true;
-  return /^0\d{9,10}$/.test(digits);
+  // UK, Australian and Thai numbers dialled locally start with 0.
+  if (/^0\d{8,10}$/.test(digits)) return true;
+  // US numbers: ten digits, optionally with the leading 1.
+  return /^1?[2-9]\d{9}$/.test(digits);
 }
 
 export function validMessage(value: string, least = 10): boolean {

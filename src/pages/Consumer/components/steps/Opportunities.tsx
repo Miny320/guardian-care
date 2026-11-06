@@ -44,7 +44,7 @@ export function OpportunityPicker({at, onPick}: {at: number; onPick: (index: num
               </span>
             </span>
 
-            <span className="mt-4 block font-display text-[20px] font-semibold uppercase leading-none text-ink">
+            <span className="mt-4 block font-display text-[20px] font-extrabold leading-none text-ink">
               {item.name}
             </span>
             <span className="mt-2 block text-[13.5px] font-light leading-[1.5] text-muted">

@@ -34,12 +34,13 @@
   --radius-panel: 22px;
   --radius-pill: 999px;
 
-  --font-sans: 'Barlow', sans-serif;
-  --font-display: 'Barlow Condensed', sans-serif;
+  --font-sans: 'Manrope', 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Manrope', 'Segoe UI', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   --ease-brand: cubic-bezier(0.19, 1, 0.22, 1);
   --animate-fadeup: fadeup 0.7s cubic-bezier(0.19, 1, 0.22, 1) both;
+  --animate-fadein: fadein 1.4s ease-out both;
   --animate-blip: blip 1.6s ease-in-out infinite;
 
   --animate-card-in: card-in 0.9s cubic-bezier(0.19, 1, 0.22, 1) both;
@@ -51,6 +52,15 @@
   --animate-flow: flow 3.4s linear infinite;
 
   --animate-bloom: bloom 19s ease-in-out infinite;
+
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 
   @keyframes fadeup {
     from {
@@ -221,148 +231,15 @@
   --logo-green: #7fb902;
   --logo-pale: #dcebbe;
 
-  --cta: #7ab300;
-  --cta-hover: #93d600;
-  --cta-strong: #629100;
-  --cta-ink: #011227;
-}
+  /* Buttons: solid white and white outline on dark sections (navy inside light ones). */
+  --btn-solid: #ffffff;
+  --btn-solid-ink: #08254a;
+  --btn-solid-hover: #eef6e0;
+  --btn-line: rgba(255, 255, 255, 0.5);
+  --btn-line-ink: #ffffff;
+  --btn-line-hover: rgba(255, 255, 255, 0.1);
+  --btn-shadow: rgba(0, 0, 0, 0.6);
 
-:root[data-theme='day'] {
-  color-scheme: light;
-
-  --color-bg: #f4f1ea;
-  --color-bg-2: #ebe6da;
-  --color-panel: #ffffff;
-  --color-panel-2: #f2f7fb;
-
-  --color-line: rgba(69, 111, 6, 0.32);
-  --color-line-2: rgba(6, 24, 44, 0.13);
-
-  --color-ink: #06182c;
-  --color-muted: #4e5358;
-  --color-faint: #63686d;
-
-  --color-green: #456f06;
-  --color-green-bright: #35590a;
-  --color-green-deep: #2b4700;
-  --color-green-glow: rgba(138, 200, 0, 0.17);
-  --color-blue: #0a5fb5;
-  --color-blue-bright: #084a8f;
-  --color-blue-glow: rgba(34, 163, 255, 0.15);
-  --color-amber: #8f6300;
-  --color-orange: #b4540a;
-  --color-red: #c23321;
-  --color-purple: #5b46c9;
-
-  --color-glass: rgba(255, 255, 255, 0.74);
-  --color-glass-2: rgba(255, 255, 255, 0.93);
-
-  --btn-glow: rgba(63, 106, 0, 0.4);
-
-  --sheen: rgba(255, 255, 255, 0.8);
-  --sheen-strong: rgba(255, 255, 255, 0.95);
-
-  --field: rgba(6, 24, 44, 0.04);
-  --field-lit: rgba(6, 24, 44, 0.065);
-  --drop: rgba(6, 24, 44, 0.18);
-  --drop-strong: rgba(6, 24, 44, 0.26);
-
-  --rim-top: rgba(6, 24, 44, 0.06);
-  --rim-upper: rgba(6, 24, 44, 0.09);
-  --rim-lower: rgba(6, 24, 44, 0.11);
-  --rim-foot: rgba(6, 24, 44, 0.17);
-
-  --bolt-amber: #e07a00;
-  --bolt-green: #5f9400;
-  --bolt-blue: #0d7fd4;
-
-  --arc-hot: #06182c;
-  --arc-hot-mix: 22%;
-  --arc-halo: 66%;
-  --arc-halo-soft: 28%;
-  --arc-peak: 0.95;
-
-  --flare-hot: rgba(224, 118, 0, 0.9);
-  --flare-halo: 44%;
-  --flare-peak: 0.88;
-  --shine-core: 8%;
-
-  --veil-heavy: rgba(244, 241, 234, 0.82);
-  --veil-mid: rgba(244, 241, 234, 0.66);
-  --veil-soft: rgba(244, 241, 234, 0.4);
-
-  --wash-amber: #ffb02e;
-  --wash-green: #8ac800;
-  --wash-blue: #22a3ff;
-
-  --gradient-far: var(--color-blue);
-  --ramp-far: #7a5200;
-  --ramp-mid: var(--color-green);
-  --img-grade: brightness(1) contrast(1.02) saturate(1.02);
-
-  --scroll-track: #ece8dd;
-  --scroll-thumb: rgba(6, 24, 44, 0.2);
-  --scroll-thumb-hover: rgba(6, 24, 44, 0.36);
-
-  --device-rail: linear-gradient(
-    155deg,
-    rgba(6, 24, 44, 0.42),
-    rgba(6, 24, 44, 0.16) 26%,
-    rgba(6, 24, 44, 0.1) 62%,
-    rgba(6, 24, 44, 0.34)
-  );
-  --device-button: linear-gradient(
-    180deg,
-    rgba(6, 24, 44, 0.34),
-    rgba(6, 24, 44, 0.14) 40%,
-    rgba(6, 24, 44, 0.28)
-  );
-  --device-glare: linear-gradient(
-    118deg,
-    transparent 32%,
-    rgba(255, 255, 255, 0.06) 43%,
-    rgba(255, 255, 255, 0.1) 47%,
-    transparent 57%
-  );
-
-  --cta: #3f6a00;
-  --cta-hover: #2f5800;
-  --cta-strong: #24450a;
-  --cta-ink: #ffffff;
-}
-
-:root[data-theme='day'] .on-navy {
-  color-scheme: dark;
-
-  --color-bg: #011227;
-  --color-bg-2: #081729;
-  --color-panel: #101d2b;
-  --color-panel-2: #17222d;
-
-  --color-line: rgba(122, 179, 0, 0.24);
-  --color-line-2: rgba(255, 255, 255, 0.1);
-
-  --color-ink: #ffffff;
-  --color-muted: #d6d9dc;
-  --color-faint: #949a9e;
-
-  --color-green: #7ab300;
-  --color-green-bright: #93d600;
-  --color-green-deep: #629100;
-  --color-blue: #0092f9;
-  --color-blue-bright: #3fa3ff;
-
-  --gradient-far: var(--logo-pale);
-  --ramp-far: var(--logo-pale);
-  --ramp-mid: var(--logo-green);
-
-  --sheen: rgba(255, 255, 255, 0.07);
-  --drop: rgba(0, 0, 0, 0.9);
-
-  --field: rgba(255, 255, 255, 0.055);
-  --field-lit: rgba(255, 255, 255, 0.085);
-
-  --btn-glow: rgba(122, 179, 0, 0.45);
   --cta: #7ab300;
   --cta-hover: #93d600;
   --cta-strong: #629100;
@@ -466,6 +343,51 @@
 
 @utility bg-field-lit {
   background-color: var(--field-lit);
+}
+
+@utility under-nav {
+  padding-top: 74px;
+
+  @media (width >= 760px) {
+    padding-top: 82px;
+  }
+}
+
+/* The brand's light palette, scoped to whatever wears it: the solid header bar and its menus. */
+@utility on-light {
+  color-scheme: light;
+
+  --color-glass: rgba(255, 255, 255, 0.74);
+  --color-glass-2: rgba(255, 255, 255, 0.93);
+  --sheen: rgba(255, 255, 255, 0.8);
+  --color-bg: #f4f1ea;
+  --color-bg-2: #ebe6da;
+  --color-panel: #ffffff;
+  --color-panel-2: #f2f7fb;
+  --color-line: rgba(69, 111, 6, 0.32);
+  --color-line-2: rgba(6, 24, 44, 0.13);
+  --color-ink: #06182c;
+  --color-muted: #4e5358;
+  --color-faint: #63686d;
+  --color-green: #456f06;
+  --color-green-glow: rgba(138, 200, 0, 0.17);
+  --color-blue: #0a5fb5;
+  --color-amber: #8f6300;
+  --ramp-far: #7a5200;
+  --ramp-mid: #456f06;
+  --gradient-far: #0a5fb5;
+  --drop: rgba(6, 24, 44, 0.18);
+  --btn-glow: rgba(63, 106, 0, 0.4);
+  --btn-solid: #08254a;
+  --btn-solid-ink: #ffffff;
+  --btn-solid-hover: #0d3566;
+  --btn-line: rgba(8, 37, 74, 0.45);
+  --btn-line-ink: #08254a;
+  --btn-line-hover: rgba(8, 37, 74, 0.06);
+  --btn-shadow: rgba(8, 37, 74, 0.7);
+  --cta: #3f6a00;
+  --cta-hover: #2f5800;
+  --cta-ink: #ffffff;
 }
 
 @utility glass {
@@ -776,3 +698,18 @@
   justify-content: center;
 }
 
+/* Journeys shown in the home page pop-up have no fixed header above them to clear. */
+.in-modal .under-nav {
+  padding-top: 0;
+}
+
+/* The hero's scroll mark: a slow drop and return. */
+@keyframes hero-cue {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(7px);
+  }
+}

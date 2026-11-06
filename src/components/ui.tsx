@@ -1,30 +1,14 @@
 import type {ReactNode} from 'react';
 import Reveal from './Reveal';
 import {cn} from '../lib/cn';
+import {PRIMARY, SECONDARY} from './kit';
 import {TONE_BG, TONE_TEXT, type StatusGlyph, type StatusTone} from '../data/command';
 
-export const BTN =
-  'inline-flex items-center justify-center gap-2.5 rounded-pill bg-[var(--cta)] px-[30px] py-[16px] ' +
-  'text-[13px] font-bold uppercase tracking-[.08em] text-[var(--cta-ink)] ' +
-  'shadow-[0_10px_30px_-12px_var(--btn-glow)] ' +
-  'transition duration-200 ease-brand hover:-translate-y-0.5 hover:bg-[var(--cta-hover)] ' +
-  'hover:shadow-[0_18px_44px_-14px_var(--btn-glow)]';
-
-export const ACTION =
-  'inline-flex items-center justify-center gap-2.5 rounded-full bg-[var(--cta)] px-8 py-4 ' +
-  'text-[15.5px] font-medium tracking-[-0.005em] text-[var(--cta-ink)] ' +
-  'shadow-[0_14px_34px_-14px_var(--btn-glow)] transition duration-250 ease-brand ' +
-  'hover:-translate-y-0.5 hover:bg-[var(--cta-hover)] hover:shadow-[0_22px_46px_-16px_var(--btn-glow)]';
-
-export const ACTION_QUIET =
-  'inline-flex items-center justify-center gap-2.5 rounded-full px-7 py-4 text-[15px] ' +
-  'font-medium text-muted ring-1 ring-line-2 transition duration-250 ease-brand ' +
-  'hover:-translate-y-0.5 hover:text-ink hover:ring-ink/30';
-
-export const BTN_LINE =
-  'inline-flex items-center gap-2.5 rounded-pill border border-line-2 px-[24px] py-[15px] text-[13px] ' +
-  'font-semibold uppercase tracking-[.08em] text-ink transition duration-200 ease-brand ' +
-  'hover:-translate-y-0.5 hover:border-green/50 hover:bg-green-glow hover:text-green';
+// Older names for the two site-wide button styles.
+export const BTN = PRIMARY;
+export const ACTION = PRIMARY;
+export const ACTION_QUIET = SECONDARY;
+export const BTN_LINE = SECONDARY;
 
 export type Accent = 'green' | 'blue' | 'purple';
 
@@ -108,7 +92,7 @@ export function SectionTitle({className, children}: {className?: string; childre
   return (
     <h2
       className={cn(
-        'mb-4 font-display text-[clamp(30px,4.2vw,50px)] font-semibold uppercase leading-[1.02] tracking-[-0.005em]',
+        'mb-4 font-display text-[clamp(30px,4.2vw,50px)] font-extrabold leading-[1.02] tracking-[-0.005em]',
         className
       )}
     >
@@ -190,7 +174,7 @@ export function DetailPanel({
         className
       )}
     >
-      <div className="font-display text-2xl font-semibold uppercase leading-[1.1] text-green">
+      <div className="font-display text-2xl font-extrabold leading-[1.1] text-green">
         {heading}
       </div>
       <div className="text-[15.5px] font-light leading-[1.68] text-muted [&_b]:font-medium [&_b]:text-ink">
@@ -352,7 +336,7 @@ export function StatCard({
           dot === 'muted' ? 'bg-line-2' : TONE_BG[dot]
         )}
       />
-      <div className="mb-[7px] font-display text-[22px] font-semibold uppercase">{name}</div>
+      <div className="mb-[7px] font-display text-[22px] font-extrabold ">{name}</div>
       <div className="text-sm font-light leading-[1.55] text-muted">{description}</div>
     </Tag>
   );
