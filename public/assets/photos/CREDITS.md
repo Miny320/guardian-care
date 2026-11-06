@@ -54,3 +54,4 @@ cut-outs live in `public/assets/parts/`.
 | `about-engineer.jpg` | About — hero. Shows the Green Guardians "GG" logo on the jacket |
 | `system-explainer.jpg` | Solar tools — hero |
 | `uk-system-diagram.jpg` | Solar tools — UK site only |
+| `dashboard-sky.jpg` | `/` — left panel of the example dashboard | Supplied by the client | Source and licence to confirm |

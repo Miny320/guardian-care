@@ -36,7 +36,6 @@ export default function Tools() {
         lead="Tap a part to see what it is for and what can go wrong with it."
       >
         <SystemDiagram />
-        <UkDiagram />
       </PageSection>
 
       <CtaBand title="Want the real numbers for your home?" action={{label: 'Start my free solar check', to: '/consumer'}} />
@@ -237,25 +236,5 @@ function SystemDiagram() {
         </div>
       </Reveal>
     </div>
-  );
-}
-
-// A fuller drawing of a typical UK home system. The labels are British, so it shows on the UK site only.
-function UkDiagram() {
-  const {code} = useCountry();
-  if (code !== 'uk') return null;
-
-  return (
-    <Reveal as="figure" className="mt-6 overflow-hidden rounded-frame ring-1 ring-line-2">
-      <img
-        src="/assets/photos/uk-system-diagram.jpg"
-        alt="A typical UK home solar and battery setup: panels, DC isolator, hybrid inverter, AC isolator and consumer unit, with a DC-coupled battery and a CT energy meter."
-        loading="lazy"
-        className="w-full"
-      />
-      <figcaption className="bg-panel px-6 py-4 text-[13.5px] font-light text-faint">
-        How the parts connect in a typical UK home with solar and a battery.
-      </figcaption>
-    </Reveal>
   );
 }

@@ -71,21 +71,21 @@ export const MACHINES: Machine[] = [
     key: 'battery',
     name: 'Battery storage',
     line: 'Stores the power your panels make in the day, so you use it in the evening instead of buying it back from the grid.',
-    image: '/assets/machines/battery.png',
+    image: '/assets/parts/battery.png',
     alt: 'A home battery storage unit'
   },
   {
     key: 'inverter',
     name: 'Monitored inverter',
     line: 'Turns your panels’ power into power your home can use, and reports its output and voltage every day, so a fault is spotted early.',
-    image: '/assets/machines/inverter.png',
+    image: '/assets/parts/inverter.png',
     alt: 'A solar inverter with a voltage gauge and AC readout'
   },
   {
     key: 'protection',
     name: 'Surge protection',
     line: 'Protects your solar system and your home’s wiring from power surges, with a safe consumer unit and isolator.',
-    image: '/assets/machines/protection.png',
+    image: '/assets/parts/protection.png',
     alt: 'A consumer unit with surge protection, a meter and an isolator'
   }
 ];

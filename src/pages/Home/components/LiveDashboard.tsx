@@ -254,19 +254,14 @@ function App({
       </div>
 
       <div className="flex min-h-0 flex-1">
-        {/* Sky panel */}
-        <div
-          className="relative w-[350px] shrink-0 overflow-hidden"
-          style={{
-            background:
-              'radial-gradient(circle at 30% 92%, rgba(255,214,120,0.95) 0%, rgba(255,190,90,0.55) 16%, transparent 42%), linear-gradient(180deg, #2f6aa5 0%, #5f97c9 38%, #a9c8de 66%, #f2d29a 100%)'
-          }}
-        >
-          <svg viewBox="0 0 350 700" className="absolute inset-0 h-full w-full opacity-70" preserveAspectRatio="none">
-            <ellipse cx="80" cy="260" rx="120" ry="26" fill="#ffffff" opacity="0.55" />
-            <ellipse cx="240" cy="330" rx="140" ry="30" fill="#ffffff" opacity="0.45" />
-            <ellipse cx="150" cy="420" rx="160" ry="34" fill="#ffffff" opacity="0.4" />
-          </svg>
+        {/* Sky panel: a sunny street of solar homes, shaded at the top so the handwriting reads. */}
+        <div className="relative w-[350px] shrink-0 overflow-hidden bg-[#2f6aa5]">
+          <img src="/assets/photos/dashboard-sky.jpg" alt="" className="absolute inset-0 h-full w-full object-cover object-[center_45%]" />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0"
+            style={{background: 'linear-gradient(180deg, rgba(10,40,80,0.45) 0%, rgba(10,40,80,0.15) 32%, transparent 55%)'}}
+          />
           <div className="relative px-7 pt-10 text-white" style={{fontFamily: "'Caveat', cursive"}}>
             <div className="text-[36px] font-bold leading-[1.2] [text-shadow:0_2px_10px_rgba(0,0,0,0.25)]">
               Same home.
